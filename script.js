@@ -12,7 +12,6 @@ function createTaskElement(task){
     li.setAttribute("data-id", task.id);
 
     taskList.append(li);
-    inputField.value = "";
 }
 
 addBtn.addEventListener("click", ()=>{
@@ -29,9 +28,14 @@ addBtn.addEventListener("click", ()=>{
     createTaskElement(taskObj);
     tasks.push(taskObj);
     localStorage.setItem("tasks", JSON.stringify(tasks));
-    
+    inputField.value = "";
 });
 
+inputField.addEventListener("keypress", (e)=>{
+    if(e.key === "Enter"){
+        addBtn.click();
+    }
+})
 
 taskList.addEventListener("click", (e)=>{
     if(e.target.classList.contains("delete-btn")){
