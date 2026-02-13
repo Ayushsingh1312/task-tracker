@@ -3,11 +3,13 @@ let addBtn = document.getElementById('addBtn');
 let taskList = document.querySelector('.task-list');
 let tasks = [];
 
-function createTaskElement(taskText){
+function createTaskElement(task){
     const li = document.createElement('li');
     li.innerHTML = `
-    <span>${taskText}</span>
-    <button class="delete-btn">X</button>`
+    <span>${task.text}</span>
+    <button class="delete-btn">X</button>`;
+
+    li.setAttribute("data-id", task.id);
 
     taskList.append(li);
     inputField.value = "";
@@ -20,20 +22,26 @@ addBtn.addEventListener("click", ()=>{
         return;
     }
 
-    createTaskElement(inputVal);
-    tasks.push(inputVal);
+    const taskObj = {
+        id: Date.now(),
+        text: inputVal
+    };
+    createTaskElement(taskObj);
+    tasks.push(taskObj);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     
 });
 
+
 taskList.addEventListener("click", (e)=>{
     if(e.target.classList.contains("delete-btn")){
-        const taskText = e.target.previousElementSibling.textContent;
+        const li = e.target.parentElement;
+        const taskId = Number(li.getAttribute("data-id"));
 
-        tasks = tasks.filter(task => task !== taskText);
+        tasks = tasks.filter(task => task.id !== taskId);
         localStorage.setItem("tasks", JSON.stringify(tasks));
         
-        e.target.parentElement.remove();
+        li.remove();
     }
 });
 
