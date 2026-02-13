@@ -3,7 +3,7 @@ let addBtn = document.getElementById('addBtn');
 let taskList = document.querySelector('.task-list');
 
 addBtn.addEventListener("click", ()=>{
-    const inputVal = inputField.value;
+    const inputVal = inputField.value.trim();
 
     if(inputVal === ""){
         return;
