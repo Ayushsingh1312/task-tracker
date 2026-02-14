@@ -47,3 +47,8 @@
     list-style: none;
     padding: 5px;
 }
+
+.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
